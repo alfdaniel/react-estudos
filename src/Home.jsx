@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { v4 } from "uuid";
 
 function Home() {
   const inputRef = useRef();
@@ -7,20 +8,35 @@ function Home() {
 
   function inserirProdutos() {
     const novoProduto = inputRef.current.value;
-    setProdutos([...produtos, novoProduto]);
+    setProdutos([
+      ...produtos,
+      {
+        id: v4(),
+        nome: novoProduto,
+      },
+    ]);
     inputRef.current.value = "";
   }
 
+  function deletarProduto(e) {
+    const id = e
+    setProdutos(produtos.filter((produto) => produto.id !== id));
+  }
+
+
   return (
-    <section>
+    <div>
       <h1>Home</h1>
       <input type="text" ref={inputRef} />
       <button onClick={inserirProdutos}>adicionar</button>
 
-      {produtos.map((produto, index) => (
-        <div key={index}>{produto}</div>
+      {produtos.map((produto) => (
+        <div key={produto.id}>
+          <p> {produto.nome }</p>
+          <button onClick={ () => deletarProduto(produto.id)} >🗑️</button>
+        </div>
       ))}
-    </section>
+    </div>
   );
 }
 
