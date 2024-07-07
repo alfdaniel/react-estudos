@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { v4 } from "uuid";
+import AddButton from "../app/style.jsx";
 
 function Home() {
   const inputRef = useRef();
@@ -28,12 +29,13 @@ function Home() {
     <div>
       <h1>Home</h1>
       <input type="text" ref={inputRef} />
-      <button onClick={inserirProdutos}>adicionar</button>
+      <AddButton $btnprop onClick={inserirProdutos}>adicionar</AddButton>
+      <AddButton onClick={inserirProdutos}>adicionar</AddButton>
 
       {produtos.map((produto) => (
         <div key={produto.id}>
           <p> {produto.nome }</p>
-          <button onClick={ () => deletarProduto(produto.id)} >🗑️</button>
+          <button  onClick={ () => deletarProduto(produto.id)} >🗑️</button>
         </div>
       ))}
     </div>
